@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ارتباط با ما | پیرایش موکات</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* صفحه بارگذاری */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-logo {
+            font-size: 120px;
+            color: #D4A574;
+            animation: 
+                logoPulse 2s infinite ease-in-out,
+                logoGlow 3s infinite alternate;
+            text-shadow: 0 0 30px rgba(212, 165, 116, 0.7);
+        }
+
+        @keyframes logoPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        @keyframes logoGlow {
+            0% { 
+                text-shadow: 0 0 20px rgba(212, 165, 116, 0.5),
+                           0 0 40px rgba(212, 165, 116, 0.3);
+            }
+            100% { 
+                text-shadow: 0 0 40px rgba(212, 165, 116, 0.8),
+                           0 0 80px rgba(212, 165, 116, 0.5);
+            }
+        }
+
+        /* تم مشکی و قهوه‌ای */
+        :root {
+            --primary-black: #1A1A1A;
+            --secondary-black: #2D2D2D;
+            --light-brown: #D4A574;
+            --medium-brown: #B08D5F;
+            --dark-brown: #8B6B46;
+            --cream: #F5E6D3;
+            --gold: #C9A86A;
+            --text-light: #E8E8E8;
+            
+            /* رنگ‌های آیکون‌ها */
+            --instagram: #E1306C;
+            --telegram: #0088cc;
+            --eitaa: #EF7F1A; /* رنگ نارنجی ایتا */
+            --phone: #25D366;
+            --portfolio: #D4A574;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Vazirmatn', 'Cairo', sans-serif;
+            background: linear-gradient(135deg, var(--primary-black) 0%, var(--secondary-black) 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--text-light);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: linear-gradient(145deg, var(--primary-black) 0%, #242424 100%);
+            border-radius: 25px;
+            padding: 35px 25px;
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(212, 165, 116, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(212, 165, 116, 0.15);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--light-brown), var(--gold), var(--light-brown));
+            background-size: 200% 100%;
+            animation: shimmer 3s infinite linear;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .logo-circle {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--secondary-black) 0%, var(--primary-black) 100%);
+            border: 3px solid var(--light-brown);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 10px 20px rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(212, 165, 116, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-circle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: conic-gradient(
+                transparent, 
+                var(--light-brown), 
+                transparent, 
+                var(--medium-brown), 
+                transparent
+            );
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-circle::after {
+            content: '';
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: var(--primary-black);
+        }
+
+        .logo-icon {
+            font-size: 40px;
+            color: var(--light-brown);
+            z-index: 2;
+            position: relative;
+        }
+
+        h1 {
+            color: var(--cream);
+            font-size: 26px;
+            margin-bottom: 8px;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--light-brown), transparent);
+        }
+
+        .subtitle {
+            color: var(--cream);
+            font-size: 14px;
+            margin-bottom: 30px;
+            font-weight: 400;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, rgba(45, 45, 45, 0.8) 0%, rgba(26, 26, 26, 0.9) 100%);
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--cream);
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 12px 24px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(212, 165, 116, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            color: var(--primary-black);
+        }
+
+        .social-link:hover::before {
+            opacity: 1;
+        }
+
+        /* رنگ‌های مختلف برای هر لینک */
+        .instagram::before { background: linear-gradient(135deg, #E1306C 0%, #C13584 100%); }
+        .telegram::before { background: linear-gradient(135deg, #0088cc 0%, #00aced 100%); }
+        .eitaa::before { background: linear-gradient(135deg, #EF7F1A 0%, #FF9500 100%); }
+        .phone::before { background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); }
+        .portfolio::before { background: linear-gradient(135deg, #D4A574 0%, #8B6B46 100%); }
+
+        /* حاشیه رنگی برای هر لینک */
+        .instagram { border-right: 4px solid var(--instagram); }
+        .telegram { border-right: 4px solid var(--telegram); }
+        .eitaa { border-right: 4px solid var(--eitaa); }
+        .phone { border-right: 4px solid var(--phone); }
+        .portfolio { border-right: 4px solid var(--portfolio); }
+
+        .link-icon {
+            font-size: 20px;
+            margin-left: 12px;
+            width: 22px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        /* استایل آیکون ایتا (SVG) */
+        .eitaa-svg-icon {
+            width: 22px;
+            height: 22px;
+            margin-left: 12px;
+            transition: all 0.3s ease;
+        }
+
+        /* رنگ آیکون‌ها در حالت عادی */
+        .instagram .link-icon { color: var(--instagram); }
+        .telegram .link-icon { color: var(--telegram); }
+        .eitaa .eitaa-svg-icon { fill: var(--eitaa); }
+        .phone .link-icon { color: var(--phone); }
+        .portfolio .link-icon { color: var(--portfolio); }
+
+        /* تغییر رنگ آیکون در hover */
+        .social-link:hover .link-icon,
+        .social-link:hover .eitaa-svg-icon {
+            transform: scale(1.2);
+        }
+
+        /* آیکون ایتا در hover */
+        .social-link.eitaa:hover .eitaa-svg-icon {
+            filter: brightness(1.2) drop-shadow(0 0 5px rgba(239, 127, 26, 0.5));
+        }
+
+        .link-text {
+            flex-grow: 1;
+            text-align: right;
+            transition: all 0.3s ease;
+        }
+
+        .link-arrow {
+            font-size: 14px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover .link-arrow {
+            opacity: 1;
+            transform: translateX(-5px);
+        }
+
+        .footer {
+            margin-top: 25px;
+            color: var(--medium-brown);
+            font-size: 13px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(212, 165, 116, 0.2);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '•••';
+            position: absolute;
+            top: -12px;
+            right: 50%;
+            transform: translateX(50%);
+            color: var(--light-brown);
+            font-size: 18px;
+            letter-spacing: 5px;
+            background: var(--primary-black);
+            padding: 0 15px;
+        }
+
+        .qr-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212, 165, 116, 0.1);
+            padding: 10px 18px;
+            border-radius: 50px;
+            margin-top: 15px;
+            color: var(--cream);
+            font-size: 12px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .qr-note i {
+            color: var(--light-brown);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.7; }
+        }
+
+        .business-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--light-brown);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            padding: 8px 16px;
+            background: rgba(212, 165, 116, 0.1);
+            border-radius: 12px;
+            display: inline-block;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        /* موبایل */
+        @media (max-width: 480px) {
+            .container {
+                max-width: 95%;
+            }
+            
+            .card {
+                padding: 25px 20px;
+                border-radius: 20px;
+            }
+            
+            h1 {
+                font-size: 22px;
+            }
+            
+            .social-link {
+                padding: 14px 16px;
+                font-size: 14px;
+            }
+            
+            .logo-circle {
+                width: 85px;
+                height: 85px;
+            }
+            
+            .logo-circle::after {
+                width: 75px;
+                height: 75px;
+            }
+            
+            .logo-icon {
+                font-size: 32px;
+            }
+            
+            .eitaa-svg-icon {
+                width: 20px;
+                height: 20px;
+            }
+            
+            .loader-logo {
+                font-size: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- صفحه بارگذاری -->
+    <div class="loader" id="loader">
+        <div class="loader-logo">
+            <i class="fas fa-cut"></i>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <div class="content">
+                <!-- لوگو -->
+                <div class="logo-container">
+                    <div class="logo-circle">
+                        <div class="logo-icon">
+                            <i class="fas fa-cut"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <h1>پیرایش موکات</h1>
+                <p class="subtitle">برای ارتباط با ما و مشاهده نمونه کارها، از لینک‌های زیر استفاده کنید</p>
+                
+                <!-- نام کسب و کار -->
+                <div class="business-name">ارتباط با ما</div>
+                
+                <!-- لینک‌های درخواستی -->
+                <div class="links-container">
+                    <!-- اینستاگرام -->
+                    <a href="https://instagram.com/_arman.moghaddam_" class="social-link instagram" target="_blank">
+                        <i class="fab fa-instagram link-icon"></i>
+                        <span class="link-text">پیج اینستاگرام</span>
+                        <i class="fas fa-arrow-left link-arrow"></i>
+                    </a>
+                    
+                    <!-- تلگرام -->
+                    <a href="https://t.me/i_armanmoghaddam" class="social-link telegram" target="_blank">
+                        <i class="fab fa-telegram link-icon"></i>
+                        <span class="link-text">کانال تلگرام</span>
+                        <i class="fas fa-arrow-left link-arrow"></i>
+                    </a>
+                    
+                    <!-- ایتا -->
+                    <a href="https://eitaa.com/arbamoghaddam" class="social-link eitaa" target="_blank">
+                        <svg class="eitaa-svg-icon" viewBox="0 0 4196.7 4300.97" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd">
+                            <rect width="4196.7" height="4300.97" style="fill:#fff" rx="1300" ry="1400"/>
+                            <path style="fill:#EF7F1A" d="M1199.06 0l1798.58 0c659.49,0 1199.06,538.75 1199.06,1198.23l0 578.29c-591.21,265.82 -1187.67,1578.34 -2056.97,1293.13 -71.6,50.88 -236.63,260.56 -248.25,419.65 -301.01,-40.09 -648.04,-385.06 -606.4,-757.05 -500.94,-362.4 -87.24,-1031.4 310.07,-1300.67 851.52,-577.12 2033.69,-80.77 1376.12,331.87 -399.85,250.9 -1254.9,416.65 -1166,-199.33 -234.55,67.66 -384.69,505.01 -102.28,732.89 -261.61,257.03 -211.32,729.47 68.32,884.6 282.81,-732.75 1267.14,-636.99 1664.89,-1511.71 299.22,-658.01 -144.4,-1407.7 -1031.35,-1292.51 -669.43,86.94 -1296.86,651.59 -1610.65,1321.28 -318.39,679.51 -271.01,1589.34 382.76,2047.9 769.36,539.64 1588.48,39.96 2084.59,-613.11 292.41,-384.93 547.93,-811.4 935.15,-1057.64l0 1025.27c0,659.47 -539.58,1199.88 -1199.06,1199.88l-1798.58 0c-659.49,0 -1199.06,-539.58 -1199.06,-1199.07l0 -1902.84c0,-659.49 539.57,-1199.06 1199.06,-1199.06z"/>
+                        </svg>
+                        <span class="link-text">کانال ایتا</span>
+                        <i class="fas fa-arrow-left link-arrow"></i>
+                    </a>
+                    
+                    <!-- نمونه کارها -->
+                    <a href="nemoneh.html" class="social-link portfolio">
+                        <i class="fas fa-images link-icon"></i>
+                        <span class="link-text">نمونه کارها</span>
+                        <i class="fas fa-arrow-left link-arrow"></i>
+                    </a>
+                    
+                    <!-- تماس تلفنی -->
+                    <a href="tel:+989134270563" class="social-link phone">
+                        <i class="fas fa-phone-alt link-icon"></i>
+                        <span class="link-text">تماس با ما</span>
+                        <i class="fas fa-arrow-left link-arrow"></i>
+                    </a>
+                </div>
+                
+                <div class="footer">
+                    <p>پیرایش و طراحی مو | خدمات تخصصی زیبایی</p>
+                    <div class="qr-note">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>تمامی حقوق برای پیرایش موکات محفوظ است</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loader = document.getElementById('loader');
+            
+            // مخفی کردن لودر
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 1500);
+            
+            // افکت‌های تعاملی
+            const links = document.querySelectorAll('.social-link');
+            const logo = document.querySelector('.logo-circle');
+            
+            links.forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+                
+                // هشدار برای لینک‌های جایگزین نشده
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href.includes('username') || href.includes('portfolio.html') || 
+                        href.includes('+989123456789')) {
+                        e.preventDefault();
+                        
+                        let message = '';
+                        if (href.includes('instagram.com')) {
+                            message = 'لطفاً آدرس اینستاگرام خود را در کد قرار دهید';
+                        } else if (href.includes('t.me')) {
+                            message = 'لطفاً آدرس تلگرام خود را در کد قرار دهید';
+                        } else if (href.includes('eitaa.com')) {
+                            message = 'لطفاً آدرس ایتای خود را در کد قرار دهید';
+                        } else if (href.includes('portfolio.html')) {
+                            message = 'لطفاً فایل نمونه کارها را ایجاد کنید';
+                        } else if (href.includes('tel:')) {
+                            message = 'لطفاً شماره تلفن خود را در کد قرار دهید';
+                        }
+                        
+                        alert(`${message}\n\nمسیر فعلی: ${href}`);
+                    }
+                });
+            });
+            
+            // افکت کلیک روی لوگو
+            logo.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+            
+            console.log('✨ صفحه ارتباط با پیرایش موکات با آیکون ایتا آماده است');
+        });
+    </script>
+</body>
+</html>
